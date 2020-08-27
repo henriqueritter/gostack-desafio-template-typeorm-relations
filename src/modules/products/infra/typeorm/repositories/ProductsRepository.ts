@@ -55,7 +55,7 @@ class ProductsRepository implements IProductsRepository {
   public async updateQuantity(
     products: IUpdateProductsQuantityDTO[],
   ): Promise<Product[]> {
-    // TODO HENRIQUE
+    // TODO
     // mapear os produtos e update apenas em uma ID //id e qtde
     return this.ormRepository.save(products);
   }
