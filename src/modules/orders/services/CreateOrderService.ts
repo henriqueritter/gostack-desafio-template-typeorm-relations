@@ -51,9 +51,11 @@ class CreateOrderService {
     );
 
     if (checkInexistentProducts.length) {
-      throw new AppError(
-        `Could not find product ${checkInexistentProducts[0].id}`,
+      const inexistentProds = checkInexistentProducts.map(
+        prod => `ID: ${prod.id}; `,
       );
+
+      throw new AppError(`Could not find product ${inexistentProds}`);
     }
 
     const findProductsWithNoQuantityAvailable = products.filter(
@@ -63,9 +65,11 @@ class CreateOrderService {
     );
 
     if (findProductsWithNoQuantityAvailable.length) {
-      throw new AppError(
-        `The quantity ${findProductsWithNoQuantityAvailable[0].quantity} is not available for ${findProductsWithNoQuantityAvailable[0].id}`,
+      const prodsQuantity = findProductsWithNoQuantityAvailable.map(
+        prod =>
+          ` The quantity ${prod.quantity} is not available for ${prod.id}`,
       );
+      throw new AppError(`${prodsQuantity}`);
     }
 
     const serializedProducts = products.map(product => ({
